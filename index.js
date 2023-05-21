@@ -34,14 +34,14 @@ app.get("/createTable", (req, res) => {
   });
 });
 
-//display of table
-app.get("/showTable/:id/", (req, res) => {
-  let id = req.params.id;
-  let sql = "ALTER TABLE advisor ADD FOREIGN KEY (s_id) REFERENCES  instructor(ID);";
-//    + id;
-//   let sql = "select * from " + id;
-//   let sql = "delete from " + id;
 
+
+//Display table 
+
+//Student
+app.get("/showTable/student/", (req, res) => {
+  
+      let sql = "select student.id,student.name,student.dept_name,student.tot_cred,instructor.name as instructor_name from student inner join advisor on student.ID = advisor.s_id inner join instructor on advisor.i_id = instructor.ID;";
   //Running the query
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -51,6 +51,19 @@ app.get("/showTable/:id/", (req, res) => {
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Student form
 app.post("/student", (req, res) => {
   let id = req.body.Id;
@@ -59,10 +72,10 @@ app.post("/student", (req, res) => {
   let tot_credit = req.body.tot_cred;
 
   const profile = {
-    ID: id,
-    name: name,
-    dept_name: dept_name,
-    tot_credit: tot_credit,
+    ID: req.body.Id,
+    name: req.body.name,
+    dept_name: req.body.dept_name,
+    tot_credit: req.body.tot_cred,
   };
   let sql = "INSERT INTO student SET ?";
   let query = con.query(sql, profile, (err, result) => {
@@ -71,7 +84,7 @@ app.post("/student", (req, res) => {
     res.send({ status: "success", message: "Info added" });
   });
   const instr = {
-    s_id: id,
+    s_id: req.body.Id,
     i_id: req.body.i_id,
   };
 
@@ -85,14 +98,11 @@ app.post("/student", (req, res) => {
 
 //Department form
 app.post("/department", (req, res) => {
-  let dept_name = req.body.dept_name;
-  let building = req.body.building;
-  let budget = req.body.budget;
-
+  
   const profile = {
-    dept_name: dept_name,
-    building: building,
-    budget: budget,
+    dept_name: req.body.dept_name,
+    building: req.body.building,
+    budget: req.body.budget,
   };
   let sql = "INSERT INTO department SET ?";
   let query = con.query(sql, profile, (err, result) => {
@@ -104,10 +114,7 @@ app.post("/department", (req, res) => {
 
 //Course form
 app.post("/course", (req, res) => {
-  let course_id = req.body.course_id;
-  let title = req.body.title;
-  let dept_name = req.body.dept_name;
-  let credits = req.body.credits;
+  
 
   const info = {
     course_id: req.body.course_id,
@@ -123,8 +130,8 @@ app.post("/course", (req, res) => {
   });
 
   const pre = {
-    course_id: course_id,
-    prereq_id: prereq_id,
+    course_id: req.body.course_id,
+    prereq_id: req.body.prereq_id,
   };
   sql = "INSERT INTO prereq SET ?";
   query = con.query(sql, pre, (err, result) => {
@@ -134,8 +141,8 @@ app.post("/course", (req, res) => {
   });
 });
 
-//Course form
-app.post("/course", (req, res) => {
+//Instructor form
+app.post("/instructor", (req, res) => {
 
   const info = {
     ID: req.body.Id,
@@ -153,10 +160,7 @@ app.post("/course", (req, res) => {
 
 //classroom form
 app.post("/classroom", (req, res) => {
-  // let building= req.body.building;
-  // let room_number= req.body.room_number;
-  // let capacity= req.body.capacity;
-  // let credits= req.body.credits;
+  
 
   const info = {
     building: req.body.building,
@@ -243,7 +247,7 @@ app.post("/takes", (req, res) => {
     if (err) throw err;
     console.log(result);
     res.send({ status: "success", message: "Info added" });
-  });
+  });1
 });
 
 app.listen(port, () => {

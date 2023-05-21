@@ -1,0 +1,69 @@
+POST REQUEST FORM :
+
+1. http://localhost:4000/student
+    PARAMETERS: body: {
+         ID: id,
+    name: name,
+    dept_name: dept_name,
+    tot_credit: tot_credit,
+    i_id: i_id,
+    }
+    
+
+2. http://localhost:4000/department
+    PARAMETERS: body: {
+         dept_name: dept_name,
+    building: building,
+    budget: budget,
+    }
+
+
+2. http://localhost:4000/course
+    PARAMETERS: body: {
+         course_id: course_id,
+    title: title,
+    dept_name: dept_name,
+    credits: credits,
+     prereq_id: prereq_id,
+    }
+
+
+2. http://localhost:4000/instructor
+    PARAMETERS: body: {
+         ID: Id,
+    name: name,
+    dept_name: dept_name,
+    salary: salary,
+    }
+
+
+
+2. http://localhost:4000/classroom
+    PARAMETERS: body: {
+         building: building,
+    capacity: capacity,
+    room_number: room_number,
+    }
+ 
+2. http://localhost:4000/section
+    PARAMETERS: body: {
+         course_id: course_id,
+    sec_id: sec_id,
+    semester: semester,
+    year: year,
+    building: building,
+    room_number: room_number,
+    time_slot_id: time_slot_id,
+    }
+ 
+2. http://localhost:4000/timeslot
+    PARAMETERS: body: {
+         time_slot_id: time_slot_id,
+    day: day,
+    start_time: start_time,
+    end_time: end_time,
+    }
+ 
+
+ 
+
